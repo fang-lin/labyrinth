@@ -44,8 +44,8 @@ export default class Labyrinth {
         this.unlinked.set(`${x},${y}`, [x, y]);
       }
     });
-    this.usableCell = null;
-    this.next([1, 1]);
+
+    this.run();
     this.recorder = this.recorder.map(map => JSON.parse(map));
   }
 
@@ -63,11 +63,15 @@ export default class Labyrinth {
       } else {
         nextCell = this.findRandomLinkedAdjoinCell(cell);
       }
-
-      if (nextCell) {
-        return this.next(nextCell);
-      }
+      return nextCell;
     }
+  }
+
+  run() {
+    let cell = this.next([1, 1]);
+    do {
+      cell = this.next(cell);
+    } while (cell);
   }
 
   record(map) {

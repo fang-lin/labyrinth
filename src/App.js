@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     let count = 0;
-    const n = 20;
+    const n = 30;
     const unit = 10;
 
     this.labyrinth = new Labyrinth(n);
@@ -25,7 +25,7 @@ class App extends Component {
       } else {
         clearInterval(recordHandler);
       }
-    }, 10);
+    }, 0);
   }
 
   createCanvas = (ele) => {
