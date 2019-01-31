@@ -18,22 +18,28 @@ export default class Canvas {
     this.element.style.height = `${this.height}px`;
   }
 
-  draw(map) {
+  drawMap(map) {
     const unit = this.unit * devicePixelRatio;
     const canvas = this.canvas;
+
+    canvas.fillStyle = "#FFF";
+    this.canvas.fillRect(0, 0, this.width, this.height);
+
     map.forEach((row, x) => {
       row.forEach((cell, y) => {
         if (cell === 1) {
           canvas.fillStyle = "#666";
-        } else if (cell === 2) {
-          canvas.fillStyle = "#EEE";
-        } else {
-          canvas.fillStyle = "#FFF";
+          this.canvas.fillRect(x * unit, y * unit, unit, unit);
         }
-        this.canvas.fillRect(x * unit, y * unit, unit, unit);
       });
     })
   }
 
+  drawCell([x, y]) {
+    const unit = this.unit * devicePixelRatio;
+    const canvas = this.canvas;
 
+    canvas.fillStyle = "#EEE";
+    this.canvas.fillRect(x * unit, y * unit, unit, unit);
+  }
 }

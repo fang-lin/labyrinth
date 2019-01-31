@@ -15,12 +15,15 @@ class App extends Component {
     const n = 30;
     const unit = 10;
 
-    this.labyrinth = new Labyrinth(n);
+    const labyrinth = new Labyrinth(n);
     const canvas = new Canvas(this.canvas, n, unit);
 
+    canvas.drawMap(labyrinth.map);
+    labyrinth.run();
+
     const recordHandler = setInterval(() => {
-      if (this.labyrinth.recorder[count]) {
-        canvas.draw(this.labyrinth.recorder[count]);
+      if (labyrinth.recorder[count]) {
+        canvas.drawCell(labyrinth.recorder[count]);
         count++;
       } else {
         clearInterval(recordHandler);

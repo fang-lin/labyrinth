@@ -45,13 +45,11 @@ export default class Labyrinth {
       }
     });
 
-    this.run();
-    this.recorder = this.recorder.map(map => JSON.parse(map));
+    // this.run();
+    // this.recorder = this.recorder.map(map => JSON.parse(map));
   }
 
   next(cell) {
-    this.record(this.map);
-
     if (this.unlinked.size > 0) {
       let nextCell = this.findRandomUnlinkedAdjoinCell(cell);
 
@@ -60,6 +58,9 @@ export default class Labyrinth {
         const y = (cell[1] + nextCell[1]) / 2;
         this.map[x][y] = 2;
         this.unlinked.delete(`${nextCell[0]},${nextCell[1]}`);
+
+        this.recorder.push([x, y]);
+
       } else {
         nextCell = this.findRandomLinkedAdjoinCell(cell);
       }
@@ -68,18 +69,21 @@ export default class Labyrinth {
   }
 
   run() {
+    const start = Date.now();
     let cell = this.next([1, 1]);
     do {
       cell = this.next(cell);
     } while (cell);
+    const end = Date.now();
+    console.log(end - start);
   }
 
-  record(map) {
-    const stringify = JSON.stringify(this.map);
-    if (this.recorder[this.recorder.length - 1] !== stringify) {
-      this.recorder.push(stringify);
-    }
-  }
+  // record(map) {
+  //   const stringify = JSON.stringify(this.map);
+  //   if (this.recorder[this.recorder.length - 1] !== stringify) {
+  //     this.recorder.push(stringify);
+  //   }
+  // }
 
 
   findUnlinkedAdjoinCells(cell) {
