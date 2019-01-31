@@ -8,7 +8,7 @@ export function include(cells, cell) {
 }
 
 export function randomCell(cells) {
-  return cells[customRandom(0, cells.length - 1)];
+  return cells.length > 1 ? cells[customRandom(0, cells.length - 1)] : cells[0];
 }
 
 export function initCheckerboard(n, each = noop) {
@@ -68,6 +68,7 @@ export default class Labyrinth {
   }
 
   run() {
+    this.unlinked.delete('1,1');
     let cell = this.next([1, 1]);
     do {
       cell = this.next(cell);
