@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     let count = 0;
-    const n = 30;
+    const n = 8;
     const unit = 10;
 
     const labyrinth = new Labyrinth(n);

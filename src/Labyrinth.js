@@ -1,12 +1,14 @@
 import noop from 'lodash/noop';
 import random from 'lodash/random';
 
+const customRandom = random;
+
 export function include(cells, cell) {
   return cells.get(`${cell[0]},${cell[1]}`);
 }
 
 export function randomCell(cells) {
-  return cells[random(0, cells.length - 1)];
+  return cells[customRandom(0, cells.length - 1)];
 }
 
 export function initCheckerboard(n, each = noop) {
@@ -44,9 +46,6 @@ export default class Labyrinth {
         this.unlinked.set(`${x},${y}`, [x, y]);
       }
     });
-
-    // this.run();
-    // this.recorder = this.recorder.map(map => JSON.parse(map));
   }
 
   next(cell) {
@@ -69,22 +68,11 @@ export default class Labyrinth {
   }
 
   run() {
-    const start = Date.now();
     let cell = this.next([1, 1]);
     do {
       cell = this.next(cell);
     } while (cell);
-    const end = Date.now();
-    console.log(end - start);
   }
-
-  // record(map) {
-  //   const stringify = JSON.stringify(this.map);
-  //   if (this.recorder[this.recorder.length - 1] !== stringify) {
-  //     this.recorder.push(stringify);
-  //   }
-  // }
-
 
   findUnlinkedAdjoinCells(cell) {
     return getAdjoinCell(cell, this.n).filter(cell => include(this.unlinked, cell));
