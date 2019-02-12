@@ -2,29 +2,35 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Labyrinth from './Labyrinth';
+import Pathfinder from './Pathfinder';
 import Canvas from './Canvas';
 
 class App extends Component {
 
   componentDidMount() {
     let count = 0;
-    const n = 10;
-    const unit = 10;
+    const n = 50;
+    const unit = 3;
 
     const labyrinth = new Labyrinth(n);
     const canvas = new Canvas(this.canvas, n, unit);
-
-    canvas.drawMap(labyrinth.map);
     labyrinth.run();
+    canvas.drawMap(labyrinth.map);
+    const pathfinder = new Pathfinder(labyrinth.map, [1, 1], [n * 2 - 1, n * 2 - 1]);
+    // const pathfinder = new Pathfinder(labyrinth.map, [1, 1], [1, n * 2 - 1]);
+    pathfinder.find();
 
-    const recordHandler = setInterval(() => {
-      if (labyrinth.recorder[count]) {
-        canvas.drawCell(labyrinth.recorder[count]);
+    const pathRecordHandler = setInterval(() => {
+      if (pathfinder.recorder[count]) {
+        canvas.drawPathCell(pathfinder.recorder[count]);
+        pathfinder.recorder[count].path && canvas.drawPath(pathfinder.recorder[count].path);
         count++;
       } else {
-        clearInterval(recordHandler);
+        clearInterval(pathRecordHandler);
       }
-    }, 100);
+    }, 0);
+
+
   }
 
   createCanvas = (ele) => {

@@ -55,11 +55,9 @@ export default class Labyrinth {
       if (nextCell) {
         const x = (cell[0] + nextCell[0]) / 2;
         const y = (cell[1] + nextCell[1]) / 2;
-        this.map[x][y] = 2;
+        this.map[x][y] = 2; // Zero is road, one is wall, two is door
         this.unlinked.delete(`${nextCell[0]},${nextCell[1]}`);
-
         this.recorder.push([x, y]);
-
       } else {
         nextCell = this.findRandomLinkedAdjoinCell(cell);
       }

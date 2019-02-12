@@ -18,6 +18,30 @@ export default class Canvas {
     this.element.style.height = `${this.height}px`;
   }
 
+  drawDoor([x, y]) {
+    const unit = this.unit * devicePixelRatio;
+    const canvas = this.canvas;
+
+    canvas.fillStyle = "#EEE";
+    this.canvas.fillRect(x * unit, y * unit, unit, unit);
+  }
+
+  drawPath([x, y]) {
+    const unit = this.unit * devicePixelRatio;
+    const canvas = this.canvas;
+
+    canvas.fillStyle = "#CFC";
+    this.canvas.fillRect(x * unit, y * unit, unit, unit);
+  }
+
+  drawPathCell([x, y]) {
+    const unit = this.unit * devicePixelRatio;
+    const canvas = this.canvas;
+
+    canvas.fillStyle = "#DFD";
+    this.canvas.fillRect(x * unit, y * unit, unit, unit);
+  }
+
   drawMap(map) {
     const unit = this.unit * devicePixelRatio;
     const canvas = this.canvas;
@@ -30,16 +54,11 @@ export default class Canvas {
         if (cell === 1) {
           canvas.fillStyle = "#666";
           this.canvas.fillRect(x * unit, y * unit, unit, unit);
+        } else if (cell === 2) {
+          canvas.fillStyle = "#EEE";
+          this.canvas.fillRect(x * unit, y * unit, unit, unit);
         }
       });
     })
-  }
-
-  drawCell([x, y]) {
-    const unit = this.unit * devicePixelRatio;
-    const canvas = this.canvas;
-
-    canvas.fillStyle = "#EEE";
-    this.canvas.fillRect(x * unit, y * unit, unit, unit);
   }
 }
