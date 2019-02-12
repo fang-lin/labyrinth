@@ -6,10 +6,6 @@ import Canvas from './Canvas';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     let count = 0;
     const n = 10;
@@ -28,7 +24,7 @@ class App extends Component {
       } else {
         clearInterval(recordHandler);
       }
-    }, 0);
+    }, 100);
   }
 
   createCanvas = (ele) => {
