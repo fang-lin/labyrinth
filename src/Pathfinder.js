@@ -1,17 +1,24 @@
 import { include } from './Labyrinth';
 
 export default class Pathfinder {
-  constructor(map, start, end) {
-    this.map = map;
-    this.start = start;
-    this.end = end;
-    this.passed = new Map();
-    this.recorder = [];
+  constructor(map) {
+    // Zero is cell, one is wall, two is door, three is path cell, four is path
+    this.bankMap = map;
+    this.reset();
   }
 
-  find() {
-    // Zero is cell, one is wall, two is door, three is path cell, four is path
-    this.generatePathTree(this.start);
+  reset() {
+    this.map = JSON.parse(JSON.stringify(this.bankMap));
+  }
+
+  find(start, end) {
+    this.reset();
+    this.start = start;
+    this.end = end;
+    this.recorder = [];
+    this.passed = new Map();
+    this.generateTree(start);
+    return this.recorder;
   }
 
   generatePath(end) {
@@ -29,7 +36,7 @@ export default class Pathfinder {
     this.recorder.reverse();
   }
 
-  generatePathTree(cell) {
+  generateTree(cell) {
     this.passed.set(`${cell[0]},${cell[1]}`, cell);
     if (cell[0] === this.end[0] && cell[1] === this.end[1]) {
       this.generatePath(cell);
@@ -38,7 +45,7 @@ export default class Pathfinder {
       cell.children = cells;
       cells.forEach(nextCell => {
         nextCell.parent = cell;
-        this.generatePathTree(nextCell);
+        this.generateTree(nextCell);
       });
     }
   };
