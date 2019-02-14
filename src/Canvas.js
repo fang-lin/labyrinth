@@ -30,7 +30,7 @@ export default class Canvas {
     const unit = this.unit * devicePixelRatio;
     const canvas = this.canvas;
 
-    canvas.fillStyle = "#CFC";
+    canvas.fillStyle = "#8B8";
     this.canvas.fillRect(x * unit, y * unit, unit, unit);
   }
 
@@ -38,7 +38,7 @@ export default class Canvas {
     const unit = this.unit * devicePixelRatio;
     const canvas = this.canvas;
 
-    canvas.fillStyle = "#DFD";
+    canvas.fillStyle = "#ACA";
     this.canvas.fillRect(x * unit, y * unit, unit, unit);
   }
 

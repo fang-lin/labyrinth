@@ -40,7 +40,6 @@ export default class Labyrinth {
   constructor(n) {
     this.n = n;
     this.unlinked = new Map();
-    this.recorder = [];
     this.map = initCheckerboard(n, (state, x, y) => {
       if (state === 0) {
         this.unlinked.set(`${x},${y}`, [x, y]);
@@ -57,7 +56,6 @@ export default class Labyrinth {
         const y = (cell[1] + nextCell[1]) / 2;
         this.map[x][y] = 2; // Zero is road, one is wall, two is door
         this.unlinked.delete(`${nextCell[0]},${nextCell[1]}`);
-        this.recorder.push([x, y]);
       } else {
         nextCell = this.findRandomLinkedAdjoinCell(cell);
       }

@@ -17,7 +17,6 @@ class App extends Component {
     labyrinth.run();
     canvas.drawMap(labyrinth.map);
     const pathfinder = new Pathfinder(labyrinth.map, [1, 1], [n * 2 - 1, n * 2 - 1]);
-    // const pathfinder = new Pathfinder(labyrinth.map, [1, 1], [1, n * 2 - 1]);
     pathfinder.find();
 
     const pathRecordHandler = setInterval(() => {
